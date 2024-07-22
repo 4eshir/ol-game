@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     createBoard(
         [
-            8, 6, 2, 2,
-            8, 6, 4, 2,
-            8, 6, 4, 2,
-            8, 6, 4, 2,
+            4, 2, 4, 4,
+            2, 4, 2, 0,
+            4, 2, 4, 2,
+            2, 4, 2, 4,
         ]
     )
 
@@ -320,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (zeros === 0 && !canCombine) {
             resultDisplay.innerHTML = "You LOSE!";
             document.removeEventListener("keydown", control);
-            setTimeout(clear, 3000);
+            setTimeout(showModal, 500);
         }
     }
 
@@ -348,6 +348,31 @@ document.addEventListener("DOMContentLoaded", () => {
     addColours()
 
     let myTimer = setInterval(addColours, 50)
+
+    function showModal() {
+        const modal = document.getElementById("myModal");
+        const retryButton = document.getElementById("end");
+
+        const actionUrl = '/index.php?r=game%2Fgame-2048%2Fend-game&score=' + score;
+
+        retryButton.setAttribute('href', actionUrl); // Устанавливаем атрибут href для кнопки
+
+        modal.style.display = "block"; // Отображаем модальное окно
+    }
+
+    // Закрыть модальное окно при нажатии на "x"
+    document.querySelector('.close').addEventListener('click', function() {
+        const modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    });
+
+    // Закрыть модальное окно при клике вне его области
+    window.onclick = function(event) {
+        const modal = document.getElementById("myModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
 })
 
 
